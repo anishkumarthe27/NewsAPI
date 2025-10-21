@@ -6,26 +6,29 @@ export class News extends Component {
         super(props);
         this.state= {
             articles: [],
-            loading: false,
+            loading: true,
             page: 1,
             totalResults: 0,
             no_of_pages: 0
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // Fetch news articles from an API and update the state
+        this.setState({loading: true});
         let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=9a45befbd55d456baafd98442bf1dc23&page=${this.state.page}&pageSize=10`;
-        fetch(url)
+        await fetch(url)
             .then(response => response.json())
             .then(data => {
                 this.setState({
                     page: this.state.page,
                     articles: data.articles,
+                    loading: false,
                     totalResults: data.totalResults,
-                    no_of_pages: Math.ceil(data.totalResults / 20) // assuming 20 articles per page
+                    no_of_pages: Math.ceil(data.totalResults / 10) // assuming 10 articles per page
                 });
             });
+            console.log(this.state.totalResults);
     }
 
     
@@ -33,43 +36,46 @@ export class News extends Component {
 
   render() {
 
-    let handlePrevious = () => {
-        this.setState({page: this.state.page - 1}, () => {
+    let handlePrevious = async () => {
+        // this.setState({page: this.state.page - 1}, () => {
+            this.setState({loading: true});
             let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=9a45befbd55d456baafd98442bf1dc23&page=${this.state.page - 1}&pageSize=10`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({
-                        page: this.state.page - 1,
-                        articles: data.articles,
-                        totalResults: data.totalResults,
-                        no_of_pages: Math.ceil(data.totalResults / 20) // assuming 20 articles per page
-                    });
-                });
-        });
-        console.log("Previous");
+            let fetchedUrl= await fetch(url);
+            let data= await fetchedUrl.json();
+            this.setState({
+                page: this.state.page - 1,
+                articles: data.articles,
+                loading: false,
+                totalResults: data.totalResults,
+                no_of_pages: Math.ceil(data.totalResults / 10) // assuming 20 articles per page
+            });
+                
+        console.log(this.state.page);
+        console.log(this.state.no_of_pages);
     }
 
-    let handleNext = () => {
-        this.setState({page: this.state.page + 1}, () => {
-            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=9a45befbd55d456baafd98442bf1dc23&page=${this.state.page + 1}&pageSize=10`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({
-                        page: this.state.page + 1,
-                        articles: data.articles,
-                        totalResults: data.totalResults,
-                        no_of_pages: Math.ceil(data.totalResults / 20) // assuming 20 articles per page
-                    });
-                });
-        });
-        console.log("Next");
+    let handleNext = async () => {
+            this.setState({loading: true});
+            console.log(this.state.page);
+            let newPage = this.state.page + 1;
+            // console.log(newPage);
+            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=9a45befbd55d456baafd98442bf1dc23&page=${newPage}&pageSize=10`;
+            let fetchedUrl= await fetch(url);
+            let data= await fetchedUrl.json();
+            this.setState({
+                page: newPage,
+                articles: data.articles,
+                totalResults: data.totalResults,
+                loading: false,
+                no_of_pages: Math.ceil(data.totalResults / 10) // assuming 20 articles per page
+            });
     }
 
     return (
       <div className='container my-2'>
-        <div className="loader" style={{zIndex: '1000'}}></div>
+        { this.state.loading &&
+          <div className="loader" style={{zIndex: '1000'}}></div>
+        }
         <div className="row my-2">
             {this.state.articles.map((article) => (
                 <div className="col-md-4 my-3" key={article.url}>

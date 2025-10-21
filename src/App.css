@@ -50,7 +50,7 @@
   background: #230fda;
   box-shadow: 0 0 10px rgba(173, 169, 243, 0.5);
   box-sizing: border-box;
-  animation: animFw 4s linear infinite;
+  animation: animFw 1s linear infinite;
 }
   .loader::after,
   .loader::before {
