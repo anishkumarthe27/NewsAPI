@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Link } from 'react-router-dom'; // BrowserRouter, Routes, Route, Navigate
+import { Link, NavLink } from 'react-router-dom'; // use Link/NavLink from the app's router
 
 
 export class Navbar extends Component {
@@ -12,20 +12,18 @@ export class Navbar extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <BrowserRouter>
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/general">general</Link></li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/business">business</Link></li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/entertainment">entertainment</Link></li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/health">health</Link></li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/science">science</Link></li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/sports">sports</Link></li>
-              <li className="nav-item"><Link className="nav-link" aria-current="page" to="/technology">technology</Link></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/general">general</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/business">business</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/entertainment">entertainment</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/health">health</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/science">science</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/sports">sports</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link" aria-current="page" to="/technology">technology</NavLink></li>
             </ul>
-            </BrowserRouter>
           </div>
         </div>
       </nav>

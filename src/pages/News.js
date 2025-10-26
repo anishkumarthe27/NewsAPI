@@ -54,6 +54,7 @@ export class News extends Component {
             let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9a45befbd55d456baafd98442bf1dc23&page=${this.state.page - 1}&pageSize=10`;
             let fetchedUrl= await fetch(url);
             let data= await fetchedUrl.json();
+            console.log(data);
             this.setState({
                 page: this.state.page - 1,
                 articles: data.articles,
@@ -92,8 +93,11 @@ export class News extends Component {
             {this.state.articles.map((article) => (
                 <div className="col-md-4 my-3" key={article.url}>
                     <NewsItem 
-                        title={article.title ? article.title : "Loading title"} 
-                        description={article.description ? article.description : "Loading description"} 
+                        source={article.source.name ? article.source.name : "Hidden source"} 
+                        author={article.author ? article.author : "-"} 
+                        date={article.publishedAt ? article.publishedAt : "-"} 
+                        title={article.title ? article.title : " "} 
+                        description={article.description ? article.description : " "} 
                         imageUrl={article.urlToImage ? article.urlToImage : "https://yt3.ggpht.com/WvlIQwlXQpNwK6xdaXieo_0Y9vlr8Pmr-iyMHJIlwYG8oD0R_epXTtOSbtAr1hm8frbZeNsgdw=s88-c-k-c0x00ffffff-no-rj" } 
                         newsUrl={article.url ? article.url : "https://yt3.ggpht.com/WvlIQwlXQpNwK6xdaXieo_0Y9vlr8Pmr-iyMHJIlwYG8oD0R_epXTtOSbtAr1hm8frbZeNsgdw=s88-c-k-c0x00ffffff-no-rj"} 
                     />
