@@ -50,7 +50,7 @@
   background: #230fda;
   box-shadow: 0 0 10px rgba(173, 169, 243, 0.5);
   box-sizing: border-box;
-  animation: animFw 1s linear infinite;
+  animation: animFw 8s linear infinite;
 }
   .loader::after,
   .loader::before {
@@ -103,3 +103,29 @@
 }
   }
 /* Ends spinner css */
+
+/* Starts loading spinner */
+.spinner {
+   width: 56px;
+   height: 56px;
+   border-radius: 50%;
+   background: radial-gradient(farthest-side,#474bff 94%,#0000) top/9px 9px no-repeat,
+          conic-gradient(#0000 30%,#474bff);
+   -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 9px),#000 0);
+   animation: spinner-c7wet2 1s infinite linear;
+   text-align: center;
+    margin: auto;
+    /* float: right; */
+}
+
+@keyframes spinner-c7wet2 {
+   100% {
+      transform: rotate(1turn);
+   }
+}
+/* Ends loading spinner */
+
+/* Infinite scroll fix */
+.infinite-scroll-component {
+  overflow: hidden !important;
+}
